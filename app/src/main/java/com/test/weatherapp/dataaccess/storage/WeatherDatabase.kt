@@ -6,9 +6,10 @@ import androidx.room.TypeConverters
 import com.test.weatherapp.dataaccess.storage.converters.ObjectsConverter
 import com.test.weatherapp.dataaccess.storage.dao.CityDao
 import com.test.weatherapp.vo.City
+import com.test.weatherapp.vo.CityForecast
 
 @Database(
-    entities = [City::class],
+    entities = [City::class, CityForecast::class],
     version = 1,
     exportSchema = false
 )
