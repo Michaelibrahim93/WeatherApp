@@ -1,8 +1,5 @@
 package com.test.basemodule.utils;
 
-import android.annotation.SuppressLint;
-
-import com.google.gson.reflect.TypeToken;
 import com.test.basemodule.base.viewmodel.BaseViewModel;
 
 import java.lang.reflect.ParameterizedType;

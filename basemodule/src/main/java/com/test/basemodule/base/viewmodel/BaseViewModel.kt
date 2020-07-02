@@ -9,7 +9,6 @@ import com.test.basemodule.base.model.LoadingState
 import com.test.basemodule.base.model.UiError
 import com.test.basemodule.base.model.VMNotification
 import com.test.basemodule.utils.LogUtils
-import retrofit2.HttpException
 import java.util.*
 
 abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
@@ -67,7 +66,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     protected open fun createUiErrorModel(throwable: Throwable, mustRetry: Boolean,runnable: Runnable?): UiError {
         return UiError(
             throwable, throwable.toString(), mustRetry
-            , throwable is HttpException
+            , false
             , runnable
         )
     }

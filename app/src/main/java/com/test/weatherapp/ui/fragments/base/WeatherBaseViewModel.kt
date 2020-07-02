@@ -22,7 +22,7 @@ open class WeatherBaseViewModel(application: Application) : BaseViewModel(applic
         }
     }
 
-    protected inline fun<T> runResourceBlock(
+    protected inline fun<T> launchResourceDataLoad(
         defaultThrowableHandle: Boolean = true,
         liveData: MutableLiveData<Resource<T>>,
         crossinline block: suspend () -> T) {
