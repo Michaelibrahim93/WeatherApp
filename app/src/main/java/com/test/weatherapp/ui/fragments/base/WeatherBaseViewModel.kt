@@ -8,6 +8,7 @@ import com.test.basemodule.base.model.resource.Resource
 import com.test.basemodule.base.viewmodel.BaseViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.concurrent.CancellationException
 
 open class WeatherBaseViewModel(application: Application) : BaseViewModel(application) {
@@ -16,6 +17,7 @@ open class WeatherBaseViewModel(application: Application) : BaseViewModel(applic
             try {
                 block()
             } catch (error: Throwable) {
+                Timber.w("launchDataLoad catch $error")
                 if (defaultThrowableHandle)
                     handleNetworkError(error)
             }
