@@ -15,9 +15,9 @@ class CityForecast constructor(
     var isBookMarked: Boolean = false
 ): City(id, name, state, country, coord) {
     companion object {
-        fun create(city: City): CityForecast {
+        fun create(city: City, isBookMarked: Boolean = false): CityForecast {
             return CityForecast(city.id, city.name, city.state, city.country, city.coord
-                , null, null, false)
+                , null, null, isBookMarked)
         }
     }
 }

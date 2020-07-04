@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toStartOf="@id/iCityIvBookmark"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@{cityForecast.name}"/>
+            android:text="@{CityItemUiHelper.cityFullName(cityForecast)}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <data>
         <import type="com.test.weatherapp.ui.fragments.home.adapter.CityItemUiHelper"/>

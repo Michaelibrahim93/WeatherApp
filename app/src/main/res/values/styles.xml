@@ -17,4 +17,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="AppToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="navigationIcon">@drawable/ic_cloud_white</item>
+    </style>
+
 </resources>
