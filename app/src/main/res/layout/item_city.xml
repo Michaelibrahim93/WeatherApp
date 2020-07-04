@@ -13,7 +13,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/default_padding"
             android:tint="@color/colorPrimaryDark"
-            android:src="@{CityItemUiHelper.bookmarkDrawable(cityForecast)}"/>
+            app:imageRes="@{CityItemUiHelper.bookmarkDrawable(cityForecast)}"
+            android:onClick="@{() -> callbacks.onBookmarkClicked()}"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -22,7 +23,13 @@
             app:layout_constraintEnd_toStartOf="@id/iCityIvBookmark"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@{CityItemUiHelper.cityFullName(cityForecast)}"/>
+            android:text="@{CityItemUiHelper.cityFullName(cityForecast)}"
+            android:padding="@dimen/default_padding"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/semitransparent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <data>
         <import type="com.test.weatherapp.ui.fragments.home.adapter.CityItemUiHelper"/>
@@ -34,5 +41,9 @@
         <variable
             name="callbacks"
             type="com.test.weatherapp.ui.fragments.home.adapter.CityItemCallbacks" />
+
+        <variable
+            name="mode"
+            type="Integer" />
     </data>
 </layout>

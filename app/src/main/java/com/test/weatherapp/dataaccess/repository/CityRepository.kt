@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.test.weatherapp.dataaccess.network.api.WebService
 import com.test.weatherapp.dataaccess.storage.dao.CityForecastDao
 import com.test.weatherapp.dataaccess.storage.dao.CityDao
+import com.test.weatherapp.vo.City
 import com.test.weatherapp.vo.CityForecast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,8 +20,19 @@ class CityRepository @Inject constructor(
     }
 
     suspend fun toggleBookmark(cityForecast: CityForecast) = withContext(Dispatchers.IO) {
-        val dbCityForecast = cityForecastDao.getCityById(cityForecast.id)
+        var dbCityForecast = cityForecastDao.getCityById(cityForecast.id)
+        if (dbCityForecast == null)
+            dbCityForecast = CityForecast.create(cityForecast)
+
         dbCityForecast.isBookMarked = !cityForecast.isBookMarked
-        cityForecastDao.getCityById(cityForecast.id)
+        cityForecastDao.insertCityForecast(dbCityForecast)
+    }
+
+    suspend fun search(query: String, loadSize: Int, offset: Int): List<City> = withContext(Dispatchers.IO) {
+        cityDao.search(query, loadSize, offset)
+    }
+
+    suspend fun loadBookmarkedCitiesSync(): List<CityForecast> = withContext(Dispatchers.IO) {
+        cityForecastDao.getBookmarkedCitiesSync()
     }
 }

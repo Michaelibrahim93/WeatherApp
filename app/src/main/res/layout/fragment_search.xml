@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        tools:context=".ui.fragments.home.HomeFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/fSearchToolbar"
+            style="@style/AppToolbarStyle"
+            android:gravity="center_vertical">
+            <androidx.appcompat.widget.AppCompatEditText android:id="@+id/fSearchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:drawableEnd="@drawable/ic_search_white"
+                android:drawablePadding="@dimen/default_padding"
+                android:background="@drawable/rounded_corner_semitransparent"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_semitransparent"
+                android:hint="@string/search"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:maxLines="1"
+                android:imeOptions="actionSearch"
+                android:text="@={searchString}"/>
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fSearchRvBookmarkedCities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <data>
+        <import type="androidx.lifecycle.MutableLiveData"/>
+
+        <variable
+            name="searchString"
+            type="MutableLiveData&lt;String>" />
+    </data>
+</layout>

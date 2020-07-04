@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.test.weatherapp.dataaccess.storage.dao.CityDao
+import com.test.weatherapp.dataaccess.storage.dao.CityForecastDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +24,11 @@ object StorageModule {
     @Provides
     fun provideCityDao(database: WeatherDatabase): CityDao {
         return database.cityDao()
+    }
+
+    @Provides
+    fun provideCityForecastDao(database: WeatherDatabase): CityForecastDao {
+        return database.cityForecastDao()
     }
 
     @Provides @Singleton

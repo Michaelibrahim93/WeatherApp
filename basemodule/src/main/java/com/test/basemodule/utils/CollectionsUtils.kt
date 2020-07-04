@@ -10,3 +10,11 @@ object CollectionsUtils {
         return list
     }
 }
+
+fun List<*>.containsItem(item: Any): Boolean {
+    for(itr in this)
+        if (itr == item)
+            return true
+
+    return false
+}

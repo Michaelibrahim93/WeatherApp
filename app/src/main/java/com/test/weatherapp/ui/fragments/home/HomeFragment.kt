@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.test.basemodule.base.view.adapter.OnItemClickListener
 import com.test.basemodule.utils.initLinear
@@ -30,6 +31,11 @@ class HomeFragment : WeatherBaseFragment<HomeViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initToolbar()
+        initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.ldBookmarkedCities.observe(viewLifecycleOwner, Observer { adapter.setData(it) })
     }
 
     private fun initToolbar() {
@@ -48,7 +54,7 @@ class HomeFragment : WeatherBaseFragment<HomeViewModel>() {
 
     private fun initRecyclerView() {
         adapter = CitiesAdapter(object : OnItemClickListener<CityForecast> {
-            override fun onItemClick(view: View?, item: CityForecast?) {
+            override fun onItemClick(view: View?, item: CityForecast?, position: Int) {
                 onCityItemClicked(view, item)
             }
         })

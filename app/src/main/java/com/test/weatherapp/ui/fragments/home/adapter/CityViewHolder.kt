@@ -10,11 +10,11 @@ class CityViewHolder(binding: ItemCityBinding) :
     init {
         binding.callbacks = this
     }
-    override fun onBindView(itemData: CityForecast) {
+    override fun onBindView(itemData: CityForecast?) {
         binding.cityForecast = itemData
     }
 
     override fun onBookmarkClicked() {
-        onItemClickListener?.onItemClick(binding.iCityIvBookmark, itemData)
+        onItemClickListener?.onItemClick(binding.iCityIvBookmark, itemData, adapterPosition)
     }
 }

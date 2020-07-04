@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.test.weatherapp.dataaccess.storage.converters.ObjectsConverter
 import com.test.weatherapp.dataaccess.storage.dao.CityDao
+import com.test.weatherapp.dataaccess.storage.dao.CityForecastDao
 import com.test.weatherapp.vo.City
 import com.test.weatherapp.vo.CityForecast
 
@@ -16,4 +17,5 @@ import com.test.weatherapp.vo.CityForecast
 @TypeConverters(ObjectsConverter::class)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun cityDao(): CityDao
+    abstract fun cityForecastDao(): CityForecastDao
 }

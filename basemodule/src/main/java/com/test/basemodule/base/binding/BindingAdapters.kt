@@ -1,6 +1,7 @@
 package com.test.basemodule.base.binding
 
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 
@@ -32,6 +33,12 @@ object BindingAdapters {
     @BindingAdapter("isSelected")
     fun setIsSelected(view: View, isSelected: Boolean) {
         view.isSelected = isSelected
+    }
+
+    @JvmStatic
+    @BindingAdapter("imageRes")
+    fun setImageRes(view: ImageView, res: Int) {
+        view.setImageResource(res)
     }
 }
 

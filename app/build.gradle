@@ -107,6 +107,10 @@ dependencies {
     //timber logs
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //pager
+    def paging_version = "3.0.0-alpha02"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

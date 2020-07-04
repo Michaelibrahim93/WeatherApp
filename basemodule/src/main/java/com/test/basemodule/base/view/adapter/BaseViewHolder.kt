@@ -16,16 +16,16 @@ abstract class BaseViewHolder<DataType, Binding : ViewDataBinding>(protected val
     init {
         itemView.setOnClickListener { v: View? ->
             if (onItemClickListener != null)
-                onItemClickListener!!.onItemClick(v, itemData)
+                onItemClickListener!!.onItemClick(v, itemData, adapterPosition)
         }
     }
 
-    fun bind(itemData: DataType) {
+    fun bind(itemData: DataType?) {
         this.itemData = itemData
         onBindView(itemData)
     }
 
-    protected abstract fun onBindView(itemData: DataType)
+    protected abstract fun onBindView(itemData: DataType?)
 
     protected val context: Context
         get() = itemView.context
