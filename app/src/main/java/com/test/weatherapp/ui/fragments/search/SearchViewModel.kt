@@ -13,6 +13,7 @@ import com.test.weatherapp.dataaccess.paging.CityPagingSource
 import com.test.weatherapp.util.DebounceOperator
 import com.test.weatherapp.vo.CityForecast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.Flow
 import timber.log.Timber
 
@@ -41,7 +42,8 @@ class SearchViewModel @ViewModelInject constructor(
     }
 
     private fun updateFlow(searchString: String) {
-        ldFlow.value = Pager(PagingConfig(pageSize = 50, initialLoadSize = 50)) {
+        viewModelScope.coroutineContext.cancelChildren()
+        ldFlow.value = Pager(PagingConfig(pageSize = 50)) {
             CityPagingSource(searchString, cityRepository)
         }.flow.cachedIn(viewModelScope)
     }

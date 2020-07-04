@@ -33,6 +33,7 @@ class SearchFragment : BindingBaseFragment<SearchViewModel, FragmentSearchBindin
         initBinding()
         initRecycler()
         initObservers()
+        fSearchEditText.requestFocus()
     }
 
     private fun initObservers() {

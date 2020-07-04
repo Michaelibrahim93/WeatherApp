@@ -17,8 +17,11 @@ class CityPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CityForecast> {
         val pageNumber = params.key?:0
         val offset = params.loadSize * pageNumber
+        Timber.d("load ${params.key} $pageNumber $offset")
 
         val searchResults = search(params, offset)
+        if (searchResults.isNotEmpty())
+            Timber.d("load searchResults: ${searchResults.size}")
 
         return LoadResult.Page(
             data = searchResults,
@@ -36,7 +39,7 @@ class CityPagingSource(
             Timber.w(t)
         }
 
-        val searchChunks = query.split("\\s*,\\s*")
+        val searchChunks = query.split(",")
         val cityNameQuery = if (searchChunks.isNotEmpty()) searchChunks[0] else ""
 
         var searchResults = cityRepo.search(cityNameQuery, params.loadSize, offset)
@@ -48,15 +51,17 @@ class CityPagingSource(
     private fun applyPostQueryFilter(searchResults: List<City>, searchChunks: List<String>): List<City> {
         return when (searchChunks.size) {
             2 -> {
+                Timber.d("applyPostQueryFilter ${searchChunks[1]}")
                 searchResults.filter {
-                    it.state?.contains(searchChunks[1], true)?:false
-                            || it.country.contains(searchChunks[1], true)
+                    it.state?.contains(searchChunks[1].trim(), true)?:false
+                            || it.country.contains(searchChunks[1].trim(), true)
                 }
             }
             3 -> {
+                Timber.d("applyPostQueryFilter ${searchChunks[1]} ${searchChunks[2]}")
                 searchResults
-                    .filter { it.state?.contains(searchChunks[1], true)?:false }
-                    .filter { it.country.contains(searchChunks[2], true) }
+                    .filter { it.state?.contains(searchChunks[1].trim(), true)?:false }
+                    .filter { it.country.contains(searchChunks[2].trim(), true) }
             }
             else -> searchResults
         }

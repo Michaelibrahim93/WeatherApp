@@ -14,6 +14,6 @@ interface CityDao {
     @Query("SELECT COUNT(id) FROM City")
     suspend fun countItems(): Int
 
-    @Query("SELECT * FROM City WHERE name GLOB :cityName|| '*' LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM City WHERE name LIKE '%' || :cityName|| '%' LIMIT :limit OFFSET :offset")
     suspend fun search(cityName: String, limit: Int, offset: Int): List<City>
 }
