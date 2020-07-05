@@ -1,6 +1,7 @@
-package com.test.weatherapp.ui.fragments.home.adapter
+package com.test.weatherapp.ui.formatters
 
 import com.test.weatherapp.R
+import com.test.weatherapp.vo.City
 import com.test.weatherapp.vo.CityForecast
 
 object CityItemUiHelper {
@@ -11,12 +12,13 @@ object CityItemUiHelper {
     }
 
     @JvmStatic
-    fun cityFullName(cityForecast: CityForecast): String {
+    fun cityFullName(city: City?): String {
+        if (city == null) return ""
         val stringBuilder = StringBuilder()
-        stringBuilder.append(cityForecast.name)
-        if (!cityForecast.state.isNullOrBlank())
-            stringBuilder.append(", ${cityForecast.state}")
-        stringBuilder.append(", ${cityForecast.country}")
+        stringBuilder.append(city.name)
+        if (!city.state.isNullOrBlank())
+            stringBuilder.append(", ${city.state}")
+        stringBuilder.append(", ${city.country}")
         return stringBuilder.toString()
     }
 }

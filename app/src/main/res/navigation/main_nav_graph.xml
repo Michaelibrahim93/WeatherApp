@@ -28,10 +28,26 @@
             app:destination="@id/searchFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_homeFragment_to_forecastDetailsFragment"
+            app:destination="@id/forecastDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.test.weatherapp.ui.fragments.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_forecastDetailsFragment"
+            app:destination="@id/forecastDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecastDetailsFragment"
+        android:name="com.test.weatherapp.ui.fragments.forecastdetails.ForecastDetailsFragment"
+        android:label="ForecastDetailsFragment"
+        tools:layout="@layout/fragment_forecast_details">
+        <argument
+            android:name="KEY_CITY_ID"
+            app:argType="long" />
+    </fragment>
 </navigation>

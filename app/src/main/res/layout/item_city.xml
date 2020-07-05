@@ -32,7 +32,7 @@
             android:background="@color/semitransparent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <data>
-        <import type="com.test.weatherapp.ui.fragments.home.adapter.CityItemUiHelper"/>
+        <import type="com.test.weatherapp.ui.formatters.CityItemUiHelper"/>
 
         <variable
             name="cityForecast"

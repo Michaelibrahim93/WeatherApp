@@ -46,10 +46,6 @@ open class WeatherBaseViewModel(application: Application) : BaseViewModel(applic
         super.onCleared()
     }
 
-    override fun createUiErrorModel(throwable: Throwable, mustRetry: Boolean, runnable: Runnable?): UiError {
-        return super.createUiErrorModel(throwable, mustRetry, runnable)
-    }
-
     fun sendError(message: String) {
         ldUiError.postValue(UiError(null, message,
             mustRetry = false,

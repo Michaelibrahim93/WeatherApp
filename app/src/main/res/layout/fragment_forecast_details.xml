@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.home.HomeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/fFDetailsToolbar"
+            style="@style/AppToolbarStyle"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:menu="@menu/forecast_details_menu"
+            app:title="@{CityItemUiHelper.cityFullName(city)}"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:visibleGone="@{resource.status == Status.LOADING}">
+                <include layout="@layout/layout_loading"/>
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:visibleGone="@{resource.status == Status.ERROR}">
+                <include layout="@layout/layout_error" />
+            </FrameLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fFDetailsRvDays"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:visibleGone="@{resource.status == Status.SUCCESS}"/>
+        </FrameLayout>
+
+    </LinearLayout>
+    <data>
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.test.weatherapp.vo.City"/>
+        <import type="com.test.weatherapp.ui.formatters.CityItemUiHelper"/>
+        <import type="com.test.basemodule.base.model.resource.Resource"/>
+        <import type="com.test.basemodule.base.model.resource.Status"/>
+        <import type="java.util.List"/>
+        <import type="com.test.weatherapp.vo.WeatherForecast"/>
+
+        <variable
+            name="city"
+            type="LiveData&lt;City>" />
+        <variable
+            name="resource"
+            type="LiveData&lt;Resource&lt;List&lt;WeatherForecast>>>" />
+    </data>
+</layout>

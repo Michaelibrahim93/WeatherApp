@@ -10,6 +10,7 @@ import androidx.paging.cachedIn
 import com.test.weatherapp.dataaccess.repository.CityRepository
 import com.test.weatherapp.ui.fragments.base.WeatherBaseViewModel
 import com.test.weatherapp.dataaccess.paging.CityPagingSource
+import com.test.weatherapp.usecases.ToggleBookmarkUseCase
 import com.test.weatherapp.util.DebounceOperator
 import com.test.weatherapp.vo.CityForecast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +21,8 @@ import timber.log.Timber
 @ExperimentalCoroutinesApi
 class SearchViewModel @ViewModelInject constructor(
     application: Application,
-    private val cityRepository: CityRepository
+    private val cityRepository: CityRepository,
+    private val toggleBookmarkUseCase: ToggleBookmarkUseCase
 ) : WeatherBaseViewModel(application) {
 
     private val debounceOperator = DebounceOperator<String>()
@@ -50,7 +52,7 @@ class SearchViewModel @ViewModelInject constructor(
 
     fun toggleBookmark(item: CityForecast?, position: Int) = launchDataLoad {
         item?.let {
-            cityRepository.toggleBookmark(it)
+            toggleBookmarkUseCase.toggleBookmark(it)
             it.isBookMarked = !it.isBookMarked
             addAction(SearchFragment.ACTION_REFRESH_LIST, position)
         }

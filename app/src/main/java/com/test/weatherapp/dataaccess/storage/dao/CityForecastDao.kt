@@ -16,11 +16,14 @@ interface CityForecastDao {
     suspend fun getBookmarkedCitiesSync(): List<CityForecast>
 
     @Query("select * from CityForecast where id = :id")
-    suspend fun getCityById(id: Long): CityForecast?
+    suspend fun getForecastByCityId(id: Long): CityForecast?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCityForecast(cityForecast: CityForecast)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMissingList(list: List<CityForecast>)
+
+    @Query("SELECT COUNT(id) FROM CityForecast where isBookMarked = 1")
+    suspend fun getBookmarkedCitiesCount(): Int
 }

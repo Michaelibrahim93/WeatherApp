@@ -45,7 +45,8 @@ class CityPagingSource(
         var searchResults = cityRepo.search(cityNameQuery, params.loadSize, offset)
         searchResults = applyPostQueryFilter(searchResults, searchChunks)
 
-        return searchResults.map { CityForecast.create(it, bookmarkedCities.containsItem(it)) }
+        return searchResults.map { CityForecast.create(city = it,
+            isBookMarked = bookmarkedCities.containsItem(it)) }
     }
 
     private fun applyPostQueryFilter(searchResults: List<City>, searchChunks: List<String>): List<City> {

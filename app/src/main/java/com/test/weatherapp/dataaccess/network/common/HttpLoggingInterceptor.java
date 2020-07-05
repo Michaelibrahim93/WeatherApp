@@ -15,6 +15,12 @@
  */
 package com.test.weatherapp.dataaccess.network.common;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -152,6 +158,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
             throw e;
         }
 
+        extractHttpError(response);
 //        RlpaHttpError httpError = extractHttpError(response);
 //        if (httpError != null)
 //            throw httpError;
@@ -272,36 +279,24 @@ public final class HttpLoggingInterceptor implements Interceptor {
         return response;
     }
 
-//    private RlpaHttpError extractHttpError(Response response) throws IOException {
-//        BufferedSource source = response.body().source();
-//        source.request(Long.MAX_VALUE); // Buffer the entire body.
-//        String responseString = source.buffer().clone().readString(UTF8).toString();
-//        JsonParser jsonParser = new JsonParser();
-//        JsonElement jsonElement = jsonParser.parse(responseString);
-//        if (jsonElement.isJsonObject() && jsonElement.getAsJsonObject().has("status")&&jsonElement.getAsJsonObject().get("status").equals(ERORR)) {
-//            String userMessage = jsonElement.getAsJsonObject().get("userMessage").getAsString();
-//            String serverMessage = jsonElement.getAsJsonObject().get("serverMessage").getAsString();
-//            int code = -1;
-//            if(jsonElement.getAsJsonObject().has("code"))
-//                code = jsonElement.getAsJsonObject().get("code").getAsInt();
-//            if (code == -1)
-//                code = response.code();
-//            return new RlpaHttpError(code, response.request().url().toString(), userMessage, serverMessage);
-//        }
-//        return null;
-//    }
-
-    private void logResponseBody(InputStream in) throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-        byte[] messageByte = new byte[1000];
-        boolean end = false;
-        while(!end)
-        {
-            int bytesRead = in.read(messageByte);
-            stringBuilder.append(new String(messageByte, 0, bytesRead));
-
+    @Nullable
+    private Object extractHttpError(@NotNull Response response) throws IOException {
+        BufferedSource source = response.body().source();
+        source.request(Long.MAX_VALUE); // Buffer the entire body.
+        String responseString = source.buffer().clone().readString(UTF8).toString();
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(responseString);
+        if (jsonElement.isJsonObject() && jsonElement.getAsJsonObject().has("status")&&jsonElement.getAsJsonObject().get("status").equals(ERORR)) {
+            String userMessage = jsonElement.getAsJsonObject().get("userMessage").getAsString();
+            String serverMessage = jsonElement.getAsJsonObject().get("serverMessage").getAsString();
+            int code = -1;
+            if(jsonElement.getAsJsonObject().has("code"))
+                code = jsonElement.getAsJsonObject().get("code").getAsInt();
+            if (code == -1)
+                code = response.code();
+            return null;//new RlpaHttpError(code, response.request().url().toString(), userMessage, serverMessage);
         }
-
+        return null;
     }
 
     /**

@@ -2,8 +2,10 @@ package com.test.weatherapp.ui.fragments.search
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import com.test.basemodule.base.model.VMNotification
 import com.test.basemodule.base.view.adapter.OnItemClickListener
@@ -11,6 +13,7 @@ import com.test.basemodule.utils.initLinear
 import com.test.weatherapp.R
 import com.test.weatherapp.databinding.FragmentSearchBinding
 import com.test.weatherapp.ui.fragments.base.BindingBaseFragment
+import com.test.weatherapp.ui.fragments.forecastdetails.ForecastDetailsFragment
 import com.test.weatherapp.ui.fragments.search.adapter.CitySearchAdapter
 import com.test.weatherapp.vo.CityForecast
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +67,11 @@ class SearchFragment : BindingBaseFragment<SearchViewModel, FragmentSearchBindin
     private fun onCityItemClicked(view: View?, item: CityForecast?, position: Int) {
         when(view?.id) {
             R.id.iCityIvBookmark -> viewModel.toggleBookmark(item, position)
+
+            else -> findNavController().navigate(
+                    R.id.action_searchFragment_to_forecastDetailsFragment,
+                    bundleOf( ForecastDetailsFragment.KEY_CITY_ID to item!!.id )
+                )
         }
     }
 

@@ -16,4 +16,7 @@ interface CityDao {
 
     @Query("SELECT * FROM City WHERE name LIKE '%' || :cityName|| '%' LIMIT :limit OFFSET :offset")
     suspend fun search(cityName: String, limit: Int, offset: Int): List<City>
+
+    @Query("SELECT * FROM City WHERE id = :cityId")
+    suspend fun getCityById(cityId: Long): City
 }

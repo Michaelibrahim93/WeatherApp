@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding">
+        <TextView android:id="@+id/iDForecastTvMinTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iDForecastTvMaxTemp"
+            android:text="@{DayForecastUiHelper.formatTemp(forecast.temperature.temperatureMin, true)}"/>
+        <TextView android:id="@+id/iDForecastTvMaxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextItemTitle"
+            app:layout_constraintEnd_toStartOf="@id/iDForecastTvMinTemp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{DayForecastUiHelper.formatTemp(forecast.temperature.temperatureMax, false)}"/>
+        <TextView android:id="@+id/iDForecastTvDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iDForecastTvMaxTemp"
+            android:text="@{DayForecastUiHelper.formatDate(dateFormat, forecast)}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+        <import type="com.test.weatherapp.ui.formatters.DayForecastUiHelper"/>
+        <variable
+            name="forecast"
+            type="com.test.weatherapp.vo.WeatherForecast" />
+        <variable
+            name="dateFormat"
+            type="java.text.SimpleDateFormat" />
+    </data>
+</layout>

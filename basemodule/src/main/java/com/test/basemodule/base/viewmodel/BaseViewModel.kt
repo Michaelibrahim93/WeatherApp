@@ -63,7 +63,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         ldUiError.postValue(createUiErrorModel(throwable, mustRetry, runnable))
     }
 
-    protected open fun createUiErrorModel(throwable: Throwable, mustRetry: Boolean,runnable: Runnable?): UiError {
+    open fun createUiErrorModel(throwable: Throwable, mustRetry: Boolean,runnable: Runnable?): UiError {
         return UiError(
             throwable, throwable.toString(), mustRetry
             , false

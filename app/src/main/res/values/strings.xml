@@ -2,4 +2,8 @@
     <string name="app_name">WeatherApp</string>
     <string name="ok">OK</string>
     <string name="search">Search</string>
+    <string name="something_went_wrong">Something went wrong, please retry in few seconds.</string>
+    <string name="retry">Retry</string>
+    <string name="already_5_cities_bookmarked">You have already 5 bookmarked cities</string>
+    <string name="bookmark">Bookmark</string>
 </resources>

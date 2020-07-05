@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.test.basemodule.base.view.adapter.OnItemClickListener
 import com.test.basemodule.utils.initLinear
 import com.test.weatherapp.R
 import com.test.weatherapp.ui.fragments.base.WeatherBaseFragment
+import com.test.weatherapp.ui.fragments.forecastdetails.ForecastDetailsFragment
 import com.test.weatherapp.ui.fragments.home.adapter.CitiesAdapter
 import com.test.weatherapp.vo.CityForecast
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +66,9 @@ class HomeFragment : WeatherBaseFragment<HomeViewModel>() {
     private fun onCityItemClicked(view: View?, item: CityForecast?) {
         when(view?.id) {
             R.id.iCityIvBookmark -> viewModel.toggleBookmark(item)
+            else ->
+                findNavController().navigate(R.id.action_homeFragment_to_forecastDetailsFragment,
+                        bundleOf( ForecastDetailsFragment.KEY_CITY_ID to item!!.id ))
         }
     }
 }
