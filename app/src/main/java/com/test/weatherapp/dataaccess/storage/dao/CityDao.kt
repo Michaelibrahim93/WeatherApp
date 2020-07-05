@@ -15,8 +15,14 @@ interface CityDao {
     suspend fun countItems(): Int
 
     @Query("SELECT * FROM City WHERE name LIKE '%' || :cityName|| '%' LIMIT :limit OFFSET :offset")
-    suspend fun search(cityName: String, limit: Int, offset: Int): List<City>
+    suspend fun searchExact(cityName: String, limit: Int, offset: Int): List<City>
 
     @Query("SELECT * FROM City WHERE id = :cityId")
     suspend fun getCityById(cityId: Long): City
+
+    @Query("SELECT * FROM City WHERE name = :cityName AND country = :country")
+    suspend fun searchExact(cityName: String, country: String): City?
+
+    @Query("SELECT * FROM City WHERE country = :country")
+    suspend fun searchCountry(country: String): List<City>
 }

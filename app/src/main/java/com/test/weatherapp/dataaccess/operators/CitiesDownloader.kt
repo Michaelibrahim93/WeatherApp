@@ -20,10 +20,6 @@ class CitiesDownloader @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson
 ) {
-    companion object {
-        private const val KEY_PROGRESS = "KEY_PROGRESS"
-        private const val CITIES_FILES_NUMBERS = 210
-    }
 
     fun shouldStartDownloading(): Boolean {
         return getDownloadProgress() < CITIES_FILES_NUMBERS - 1
@@ -60,5 +56,10 @@ class CitiesDownloader @Inject constructor(
 
     private fun getDownloadProgress(): Int {
         return sharedPreferences.getInt(KEY_PROGRESS, 0)
+    }
+    
+    companion object {
+        private const val KEY_PROGRESS = "KEY_PROGRESS"
+        private const val CITIES_FILES_NUMBERS = 210
     }
 }

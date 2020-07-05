@@ -1,5 +1,6 @@
 package com.test.weatherapp.dataaccess.repository
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import com.test.basemodule.utils.CalendarUtils
 import com.test.weatherapp.dataaccess.network.api.WebService
@@ -17,14 +18,23 @@ import javax.inject.Inject
 class CityRepository @Inject constructor(
     private val webService: WebService,
     private val cityDao: CityDao,
-    private val cityForecastDao: CityForecastDao
+    private val cityForecastDao: CityForecastDao,
+    private val sharedPreferences: SharedPreferences
 ){
     fun loadBookmarkedCities(): LiveData<List<CityForecast>> {
         return cityForecastDao.getBookmarkedCities()
     }
 
     suspend fun search(query: String, loadSize: Int, offset: Int): List<City> = withContext(Dispatchers.IO) {
-        cityDao.search(query, loadSize, offset)
+        cityDao.searchExact(query, loadSize, offset)
+    }
+
+    suspend fun searchExact(cityQuery: String, country: String): City? = withContext(Dispatchers.IO) {
+        cityDao.searchExact(cityQuery, country)
+    }
+
+    suspend fun searchCountry(country: String): List<City> = withContext(Dispatchers.IO) {
+        cityDao.searchCountry(country)
     }
 
     suspend fun getCityById(cityId: Long): City = withContext(Dispatchers.IO) {
@@ -68,5 +78,15 @@ class CityRepository @Inject constructor(
 
     suspend fun insertCityForecast(dbCityForecast: CityForecast) {
         cityForecastDao.insertCityForecast(dbCityForecast)
+        if (dbCityForecast.isBookMarked)
+            sharedPreferences.edit().putBoolean(KEY_FIRST_BOOKMARK, true).apply()
+    }
+
+    fun hasAddedFirstBookmark(): Boolean {
+        return sharedPreferences.getBoolean(KEY_FIRST_BOOKMARK, false)
+    }
+
+    companion object {
+        private const val KEY_FIRST_BOOKMARK = "KEY_FIRST_BOOKMARK"
     }
 }
