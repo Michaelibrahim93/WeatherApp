@@ -7,9 +7,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.test.weatherapp.dataaccess.repository.CityRepository
+import com.test.weatherapp.dataaccess.repository.ForecastRepository
 import com.test.weatherapp.ui.fragments.base.WeatherBaseViewModel
 import com.test.weatherapp.dataaccess.paging.CityPagingSource
+import com.test.weatherapp.dataaccess.repository.CityRepository
 import com.test.weatherapp.usecases.ToggleBookmarkUseCase
 import com.test.weatherapp.util.DebounceOperator
 import com.test.weatherapp.vo.CityForecast
@@ -21,6 +22,7 @@ import timber.log.Timber
 @ExperimentalCoroutinesApi
 class SearchViewModel @ViewModelInject constructor(
     application: Application,
+    private val forecastRepository: ForecastRepository,
     private val cityRepository: CityRepository,
     private val toggleBookmarkUseCase: ToggleBookmarkUseCase
 ) : WeatherBaseViewModel(application) {
@@ -46,7 +48,7 @@ class SearchViewModel @ViewModelInject constructor(
     private fun updateFlow(searchString: String) {
         viewModelScope.coroutineContext.cancelChildren()
         ldFlow.value = Pager(PagingConfig(pageSize = 50)) {
-            CityPagingSource(searchString, cityRepository)
+            CityPagingSource(searchString, cityRepository, forecastRepository)
         }.flow.cachedIn(viewModelScope)
     }
 

@@ -2,6 +2,8 @@ package com.test.weatherapp.vo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.test.basemodule.utils.CalendarUtils
+import java.util.*
 
 //TODO:: use foreign key
 @Entity
@@ -13,6 +15,14 @@ class CityForecast constructor(
     val lastForecastUpdate: Long? = null,//time in unix
     var isBookMarked: Boolean = false
 ){
+
+    fun todayWeather(): WeatherForecast? {
+        val calendar = Calendar.getInstance()
+        return forecastList?.find {
+            val itrCal = CalendarUtils.unixToCalendar(it.unixTime)
+            CalendarUtils.same(CalendarUtils.CalendarUnit.DAY, calendar, itrCal)
+        }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (other is City)

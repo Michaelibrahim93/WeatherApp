@@ -1,9 +1,12 @@
 package com.test.weatherapp.ui.formatters
 
+import com.test.weatherapp.util.TempConverter
+import com.test.weatherapp.util.TempConverter.kelvinToCel
 import com.test.weatherapp.vo.WeatherForecast
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 object DayForecastUiHelper {
     @JvmStatic
@@ -11,10 +14,20 @@ object DayForecastUiHelper {
         val stringBuilder = StringBuilder()
         if (isMin)
             stringBuilder.append("/")
-        stringBuilder.append((dTemp-273.15).toInt().toString())
+        stringBuilder.append(kelvinToCel(dTemp).toString())
 
         if (isMin)
             stringBuilder.append("°C")
+        return stringBuilder.toString()
+    }
+    @JvmStatic
+    fun formatFullTemp(weatherForecast: WeatherForecast?): String {
+        if (weatherForecast == null) return ""
+        val stringBuilder = StringBuilder()
+            .append(kelvinToCel(weatherForecast.temperature.temperatureMax))
+            .append("/")
+            .append(kelvinToCel(weatherForecast.temperature.temperatureMin))
+            .append("°C")
         return stringBuilder.toString()
     }
 

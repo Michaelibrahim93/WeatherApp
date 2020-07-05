@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.test.basemodule.base.model.resource.Resource
 import com.test.basemodule.utils.CalendarUtils
 import com.test.weatherapp.dataaccess.repository.CityRepository
+import com.test.weatherapp.dataaccess.repository.ForecastRepository
 import com.test.weatherapp.ui.fragments.base.WeatherBaseViewModel
 import com.test.weatherapp.usecases.ToggleBookmarkUseCase
 import com.test.weatherapp.vo.City
@@ -17,7 +18,8 @@ import kotlin.collections.ArrayList
 
 class ForecastDetailsViewModel @ViewModelInject constructor(
     application: Application,
-    private val cityRepository: CityRepository,
+    private val forecastRepository: ForecastRepository,
+    private val cityRepo: CityRepository,
     private val toggleBookmarkUseCase: ToggleBookmarkUseCase
 ) : WeatherBaseViewModel(application) {
 
@@ -33,9 +35,9 @@ class ForecastDetailsViewModel @ViewModelInject constructor(
     }
 
     fun loadForecast() = launchResourceDataLoad(false, ldDaysForecast){
-        val city = cityRepository.getCityById(cityId)
+        val city = cityRepo.getCityById(cityId)
         ldCity.value = city
-        cityForecast = cityRepository.loadCityForecast(cityId)
+        cityForecast = forecastRepository.loadCityForecast(cityId)
         ldIsBookmarked.value = cityForecast!!.isBookMarked
         toWeatherList(cityForecast!!)
     }

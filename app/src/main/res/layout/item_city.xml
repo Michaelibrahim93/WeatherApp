@@ -16,15 +16,26 @@
             app:imageRes="@{CityItemUiHelper.bookmarkDrawable(cityForecast)}"
             android:onClick="@{() -> callbacks.onBookmarkClicked()}"/>
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/iCityTvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/TextItemTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iCityIvBookmark"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:text="@{CityItemUiHelper.cityFullName(cityForecast.city)}"
             android:padding="@dimen/default_padding"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/iCityTvName"
+            app:layout_constraintEnd_toEndOf="@id/iCityTvName"
+            app:layout_constraintTop_toBottomOf="@id/iCityTvName"
+            android:paddingBottom="@dimen/default_padding"
+            android:paddingStart="@dimen/default_padding"
+            app:visibleGone="@{cityForecast.todayWeather() != null}"
+            android:text="@{DayForecastUiHelper.formatFullTemp(cityForecast.todayWeather())}"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -33,6 +44,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <data>
         <import type="com.test.weatherapp.ui.formatters.CityItemUiHelper"/>
+        <import type="com.test.weatherapp.ui.formatters.DayForecastUiHelper"/>
 
         <variable
             name="cityForecast"

@@ -3,6 +3,7 @@ package com.test.weatherapp.dataaccess.paging
 import androidx.paging.*
 import com.test.basemodule.utils.containsItem
 import com.test.weatherapp.dataaccess.repository.CityRepository
+import com.test.weatherapp.dataaccess.repository.ForecastRepository
 import com.test.weatherapp.vo.City
 import com.test.weatherapp.vo.CityForecast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -11,7 +12,8 @@ import timber.log.Timber
 @ExperimentalCoroutinesApi
 class CityPagingSource(
     private val query: String,
-    private val cityRepo: CityRepository
+    private val cityRepo: CityRepository,
+    private val forecastRepo: ForecastRepository
 ) : PagingSource<Int, CityForecast>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CityForecast> {
@@ -33,7 +35,7 @@ class CityPagingSource(
     private suspend fun search(params: LoadParams<Int>, offset: Int): List<CityForecast> {
         var bookmarkedCities: List<CityForecast> = ArrayList()
         try {
-            bookmarkedCities = cityRepo.loadBookmarkedCitiesSync()
+            bookmarkedCities = forecastRepo.loadBookmarkedCitiesSync()
             Timber.d("${bookmarkedCities.size}")
         }catch (t: Throwable) {
             Timber.w(t)
