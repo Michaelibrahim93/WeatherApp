@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashFragment : WeatherBaseFragment<SplashViewModel>() {
-    lateinit var loadingErrorLayout: LoadingErrorLayout
+    private lateinit var loadingErrorLayout: LoadingErrorLayout
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

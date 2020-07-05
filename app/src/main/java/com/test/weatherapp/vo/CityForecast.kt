@@ -1,19 +1,18 @@
 package com.test.weatherapp.vo
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 //TODO:: use foreign key
 @Entity
 class CityForecast constructor(
-    id: Long,//city_id
-    name: String,
-    state: String?,
-    country: String,
-    coord: Coordinates,
+    @PrimaryKey
+    val id: Long,//city_id
+    val city: City,
     val forecastList: List<WeatherForecast>? = null,
     val lastForecastUpdate: Long? = null,//time in unix
     var isBookMarked: Boolean = false
-): City(id, name, state, country, coord) {
+){
 
     override fun equals(other: Any?): Boolean {
         if (other is City)
@@ -32,8 +31,7 @@ class CityForecast constructor(
     companion object {
         fun create(city: City, forecastList: List<WeatherForecast>? = null
                    , lastForecastUpdate: Long? = null ,isBookMarked: Boolean = false): CityForecast {
-            return CityForecast(city.id, city.name, city.state, city.country, city.coord
-                , forecastList, lastForecastUpdate, isBookMarked)
+            return CityForecast(city.id, city, forecastList, lastForecastUpdate, isBookMarked)
         }
     }
 }

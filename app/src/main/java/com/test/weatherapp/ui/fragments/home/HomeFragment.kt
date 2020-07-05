@@ -2,7 +2,6 @@ package com.test.weatherapp.ui.fragments.home
 
 import android.Manifest
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View

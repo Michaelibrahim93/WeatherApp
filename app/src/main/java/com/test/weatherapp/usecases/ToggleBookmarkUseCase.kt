@@ -18,7 +18,7 @@ class ToggleBookmarkUseCase @Inject constructor(
             throw Throwable(application.getString(R.string.already_5_cities_bookmarked))
         var dbCityForecast = cityRepository.getForecastByCityId(cityForecast.id)
         if (dbCityForecast == null)
-            dbCityForecast = CityForecast.create(cityForecast)
+            dbCityForecast = CityForecast.create(cityForecast.city)
 
         dbCityForecast.isBookMarked = !cityForecast.isBookMarked
         cityRepository.insertCityForecast(dbCityForecast)

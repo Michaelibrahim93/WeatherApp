@@ -58,7 +58,7 @@ class CityRepository @Inject constructor(
     }
 
     private suspend fun fetWeatherForecast(cityId: Long, dbForecast: CityForecast?): CityForecast {
-        val city = dbForecast ?: getCityById(cityId)
+        val city = dbForecast?.city ?: getCityById(cityId)
         val response = webService.getWeatherForecastList(city.coord.lat, city.coord.lon)
         return CityForecast.create(
             city = city,

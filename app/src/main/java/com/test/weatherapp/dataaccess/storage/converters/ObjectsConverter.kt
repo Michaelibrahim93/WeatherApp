@@ -31,4 +31,14 @@ class ObjectsConverter {
         return if (!jsonString.isNullOrEmpty()) Gson().fromJson(jsonString, listType)
         else null
     }
+
+    @TypeConverter
+    fun fromCity(mObject: City): String {
+        return Gson().toJson(mObject)
+    }
+
+    @TypeConverter
+    fun toCity(jsonString: String?): City {
+        return Gson().fromJson(jsonString, City::class.java)
+    }
 }

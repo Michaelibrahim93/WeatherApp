@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import com.test.basemodule.base.model.VMNotification
 import com.test.basemodule.base.view.adapter.OnItemClickListener
+import com.test.basemodule.utils.KeyboardUtils
 import com.test.basemodule.utils.initLinear
 import com.test.weatherapp.R
 import com.test.weatherapp.databinding.FragmentSearchBinding
@@ -36,7 +37,7 @@ class SearchFragment : BindingBaseFragment<SearchViewModel, FragmentSearchBindin
         initBinding()
         initRecycler()
         initObservers()
-        fSearchEditText.requestFocus()
+        KeyboardUtils.showSoftKeyboard(fSearchEditText)
     }
 
     private fun initObservers() {
