@@ -40,6 +40,15 @@ class AddFirstCityUseCase @Inject constructor(
                 isBookMarked = true
             ))
             Timber.d("insertCityForecast: ${city.name}")
+            updateForecast(it)
+        }
+    }
+
+    private suspend fun updateForecast(it: City) {
+        try {
+            forecastRepository.updateCityForecast(it.id)
+        } catch (t: Throwable) {
+            Timber.w(t)
         }
     }
 

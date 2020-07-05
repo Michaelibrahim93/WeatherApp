@@ -6,7 +6,6 @@ import com.test.basemodule.utils.CalendarUtils
 import com.test.weatherapp.dataaccess.network.api.WebService
 import com.test.weatherapp.dataaccess.storage.dao.CityForecastDao
 import com.test.weatherapp.dataaccess.storage.dao.CityDao
-import com.test.weatherapp.vo.City
 import com.test.weatherapp.vo.CityForecast
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +28,7 @@ class ForecastRepository @Inject constructor(
         cityForecastDao.getBookmarkedCitiesSync()
     }
 
-    suspend fun loadCityForecast(cityId: Long): CityForecast {
+    suspend fun updateCityForecast(cityId: Long): CityForecast {
         val dbForecast = cityForecastDao.getForecastByCityId(cityId)
         val fetchDataFromServer = dbForecast?.lastForecastUpdate == null
                 || CalendarUtils.same(CalendarUtils.CalendarUnit.DAY
@@ -74,8 +73,11 @@ class ForecastRepository @Inject constructor(
         return sharedPreferences.getBoolean(KEY_FIRST_BOOKMARK, false)
     }
 
-    fun updateBookmarkedCities() {
-
+    suspend fun updateBookmarkedCities() = withContext(Dispatchers.IO){
+        val bookmarkedCities = loadBookmarkedCitiesSync()
+        bookmarkedCities.forEach {
+            updateCityForecast(it.id)
+        }
     }
 
     companion object {

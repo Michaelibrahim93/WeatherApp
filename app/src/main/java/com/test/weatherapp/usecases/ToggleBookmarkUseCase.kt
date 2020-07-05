@@ -6,6 +6,7 @@ import com.test.weatherapp.dataaccess.repository.ForecastRepository
 import com.test.weatherapp.vo.CityForecast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class ToggleBookmarkUseCase @Inject constructor(
@@ -22,5 +23,11 @@ class ToggleBookmarkUseCase @Inject constructor(
 
         dbCityForecast.isBookMarked = !cityForecast.isBookMarked
         forecastRepository.insertCityForecast(dbCityForecast)
+        try {
+            if (dbCityForecast.isBookMarked)
+                forecastRepository.updateCityForecast(dbCityForecast.id)
+        }catch (t: Throwable) {
+            Timber.w(t)
+        }
     }
 }

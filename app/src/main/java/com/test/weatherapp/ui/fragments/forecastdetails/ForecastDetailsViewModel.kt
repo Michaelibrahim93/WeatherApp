@@ -37,7 +37,7 @@ class ForecastDetailsViewModel @ViewModelInject constructor(
     fun loadForecast() = launchResourceDataLoad(false, ldDaysForecast){
         val city = cityRepo.getCityById(cityId)
         ldCity.value = city
-        cityForecast = forecastRepository.loadCityForecast(cityId)
+        cityForecast = forecastRepository.updateCityForecast(cityId)
         ldIsBookmarked.value = cityForecast!!.isBookMarked
         toWeatherList(cityForecast!!)
     }
