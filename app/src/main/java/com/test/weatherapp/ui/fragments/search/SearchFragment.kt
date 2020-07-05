@@ -83,7 +83,18 @@ class SearchFragment : BindingBaseFragment<SearchViewModel, FragmentSearchBindin
         }
     }
 
+    override fun showLoading(loadingMode: Int) {
+        super.showLoading(loadingMode)
+        fSearchLoading.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading(loadingMode: Int) {
+        super.hideLoading(loadingMode)
+        fSearchLoading.visibility = View.GONE
+    }
+
     companion object {
         const val ACTION_REFRESH_LIST = "ACTION_REFRESH_LIST"
+        const val LOADING_OVERLAY = 123
     }
 }

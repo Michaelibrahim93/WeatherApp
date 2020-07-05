@@ -38,9 +38,12 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         if (threadSafe) ldLoadingState.postValue() else ldLoadingState.setValue()
     }
 
-    protected fun removeLoadingObject(tag: Any?) {
+    protected fun removeLoadingObject(tag: Any?, threadSafe: Boolean = true) {
         ldLoadingState.value!!.removeLoadingObject(tag)
-        ldLoadingState.postValue()
+        if (threadSafe)
+            ldLoadingState.postValue()
+        else
+            ldLoadingState.setValue()
     }
 
     protected fun addAction(action: String?, tag: Any? = null, threadSafe: Boolean = true) {

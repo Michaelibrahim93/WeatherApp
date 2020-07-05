@@ -54,9 +54,11 @@ class SearchViewModel @ViewModelInject constructor(
 
     fun toggleBookmark(item: CityForecast?, position: Int) = launchDataLoad {
         item?.let {
+            addLoadingObject(SearchFragment.LOADING_OVERLAY, CityForecast::class, false)
             toggleBookmarkUseCase.toggleBookmark(it)
             it.isBookMarked = !it.isBookMarked
             addAction(SearchFragment.ACTION_REFRESH_LIST, position)
+            removeLoadingObject(CityForecast::class, false)
         }
     }
 }

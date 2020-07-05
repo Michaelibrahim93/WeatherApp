@@ -30,10 +30,17 @@
                 android:imeOptions="actionSearch"
                 android:text="@={searchString}"/>
         </androidx.appcompat.widget.Toolbar>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fSearchRvBookmarkedCities"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fSearchRvBookmarkedCities"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <include layout="@layout/layout_loading"
+                android:visibility="gone"
+                android:id="@+id/fSearchLoading"/>
+        </FrameLayout>
     </LinearLayout>
     <data>
         <import type="androidx.lifecycle.MutableLiveData"/>
