@@ -29,6 +29,10 @@ class ForecastDetailsViewModel @ViewModelInject constructor(
     private var cityId: Long = 0
     var cityForecast: CityForecast? = null
 
+    init {
+        forecastRepository.logCount()
+    }
+
     fun extractArgument(arguments: Bundle?) {
         cityId = arguments!![ForecastDetailsFragment.KEY_CITY_ID] as Long
         loadForecast()

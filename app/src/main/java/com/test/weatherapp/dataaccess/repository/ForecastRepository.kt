@@ -10,6 +10,7 @@ import com.test.weatherapp.vo.CityForecast
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -20,6 +21,13 @@ class ForecastRepository @Inject constructor(
     private val cityForecastDao: CityForecastDao,
     private val sharedPreferences: SharedPreferences
 ){
+    private var count = 0
+
+    fun logCount() {
+        Timber.d("coounter: $count")
+        count++
+    }
+
     fun loadBookmarkedCities(): LiveData<List<CityForecast>> {
         return cityForecastDao.getBookmarkedCities()
     }

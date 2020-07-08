@@ -20,6 +20,7 @@ class HomeViewModel @ViewModelInject constructor(
     val ldBookmarkedCities = forecastRepository.loadBookmarkedCities()
 
     init {
+        forecastRepository.logCount()
         updateBookmarkedCities()
     }
 
